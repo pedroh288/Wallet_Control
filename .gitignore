@@ -2,5 +2,11 @@
 __pycache__/
 *.pyc
 
+#Banco de Dados
+data/
+*.db
+exports/
+*.xlsx
+
 notes.md
 style.txt

@@ -27,12 +27,12 @@ def logo():
         
 def escolha_menu():
     while True:
-        limpar()
         logo()
         print("""===== escolha =====""".upper())
         print("""
 [1] - Novo pagamento
-[2] - Exportar Excel
+[2] - Listar Pendentes
+[3] - Exportar Excel
 [0] - Sair
     """)
             
@@ -42,6 +42,9 @@ def escolha_menu():
                 services.financeiro.novo_registro()
 
             elif opcao == "2":
+                services.financeiro.listar_pendentes()
+
+            elif opcao == "3":
                 services.excel.exportar_excel()
 
             elif opcao == "0":

@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 from datetime import datetime
 import os
-from database.banco import buscar_registros
+from database.banco import buscar_registros, marcar_exportados
 
 def exportar_excel():
     registros = buscar_registros()
@@ -37,5 +37,6 @@ def exportar_excel():
         aba.append(registro)
 
     arquivo.save(caminho)
-
-    print(f"Excel criado: {caminho}")
+    marcar_exportados()
+    print(f"\nExcel criado: {caminho}")
+    input("\nPressione ENTER para continuar...")

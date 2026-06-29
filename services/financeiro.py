@@ -1,5 +1,6 @@
 import os
 from database.banco import salvar_registro
+from database.banco import registros_pendentes
 
 def limpar():
     os.system("cls" if os.name == "nt" else "clear")
@@ -26,7 +27,7 @@ def novo_registro():
         data = input("\nData (DD/MM/AAAA): ").strip()
         hora = input("\nHora (HH:MM): ").strip()
         valor = input("\nValor (R$): ").strip()
-        print("""Forma de pagamento:
+        print("""\nForma de pagamento:
 [1] PIX
 [2] Dinheiro
 [3] Débito
@@ -40,7 +41,7 @@ def novo_registro():
             "4": "Crédito"
         }
         pagamento = formas.get(pagamento, "Não informado")
-        cnpj = input("CNPJ (opcional): ").strip()
+        cnpj = input("\nCNPJ (opcional): ").strip()
 
         if cnpj == "":
             cnpj = "Não informado"
@@ -63,7 +64,7 @@ def novo_registro():
     """)
         
         for chave, valor in registro.items():
-            print(f"{chave}: {valor}")
+            print(f"{chave.capitalize()}: {valor}")
         input("\nPressione ENTER para continuar...")
         return True
     
@@ -71,6 +72,40 @@ def novo_registro():
         print("\n\nVoltando ao menu...")
         input("\nPressione ENTER para continuar...")
         return None
+
+def listar_pendentes():
+
+    registros = registros_pendentes()
+
+    if not registros:
+
+        print("\nNenhum registro pendente.")
+        input("\nENTER para continuar...")
+        return
+
+
+    print("""
+============================
+ REGISTROS NÃO EXPORTADOS
+============================
+""")
+
+
+    for registro in registros:
+
+        print(f"""
+ID: {registro[0]}
+Local: {registro[1]}
+Data: {registro[2]}
+Hora: {registro[3]}
+Valor: R${registro[4]}
+Pagamento: {registro[5]}
+CNPJ: {registro[6]}
+----------------------------
+""")
+
+
+    input("ENTER para continuar...")
 
 if __name__ == "__main__":
     novo_registro()

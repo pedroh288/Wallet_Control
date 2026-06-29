@@ -14,12 +14,14 @@ def criar_tabela():
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        local TEXT,
+        local TEXT,a
         data TEXT,
         hora TEXT,
         valor TEXT,
         pagamento TEXT,
-        cnpj TEXT
+        cnpj TEXT,
+
+        exportado INTEGER DEFAULT 0
 
     )
     """)
@@ -73,3 +75,37 @@ def buscar_registros():
     conexao.close()
 
     return registros
+
+def registros_pendentes():
+
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT *
+    FROM pagamentos
+    WHERE exportado = 0
+    """)
+
+    registros = cursor.fetchall()
+
+    conexao.close()
+
+    return registros
+
+def marcar_exportados():
+
+    conexao = conectar()
+
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE pagamentos
+    SET exportado = 1
+    WHERE exportado = 0
+    """)
+
+    conexao.commit()
+
+    conexao.close()
