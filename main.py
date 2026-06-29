@@ -1,5 +1,5 @@
-from services.financeiro import novo_registro
-from services.excel import exportar_excel
+from database.banco import criar_tabela
+import services
 import os
 
 VERSAO = "0.1"
@@ -39,10 +39,10 @@ def escolha_menu():
         opcao = input("> ").strip()
         try:
             if opcao == "1":
-                novo_registro()
+                services.financeiro.novo_registro()
 
             elif opcao == "2":
-                exportar_excel()
+                services.excel.exportar_excel()
 
             elif opcao == "0":
                 encerrar()
@@ -57,6 +57,7 @@ def escolha_menu():
             break
 
 def main():
+    criar_tabela()
     try:
         limpar()
         escolha_menu()
