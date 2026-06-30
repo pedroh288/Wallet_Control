@@ -14,12 +14,12 @@ def criar_tabela():
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        local TEXT,a
-        data TEXT,
-        hora TEXT,
-        valor TEXT,
-        pagamento TEXT,
-        cnpj TEXT,
+        Local TEXT,
+        Data TEXT,
+        Hora TEXT,
+        Valor TEXT,
+        Pagamento TEXT,
+        CNPJ TEXT,
 
         exportado INTEGER DEFAULT 0
 
@@ -62,7 +62,6 @@ def salvar_registro(registro):
 def buscar_registros():
 
     conexao = conectar()
-
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -79,7 +78,6 @@ def buscar_registros():
 def registros_pendentes():
 
     conexao = conectar()
-
     cursor = conexao.cursor()
 
     cursor.execute("""

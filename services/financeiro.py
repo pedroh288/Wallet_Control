@@ -18,27 +18,53 @@ def logo():
 :                                                          :
 ····························································
 """)
+
+def pedir_numero(mensagem):
+
+    while True:
+        valor = input(mensagem).strip()
+
+        if valor.isdigit():
+            return valor
+
+        print("Digite apenas números!")
+
+
+def pedir_valor(mensagem):
+
+    while True:
+        valor = input(mensagem).strip()
+
+        try:
+            float(valor.replace(",", "."))
+
+            return valor
+
+        except ValueError:
+            print("Digite um valor válido!")
     
 def novo_registro():
     try:
         logo()
         print("\n=== Novo Registro ===".upper())
         local = input("\nLocal: ").strip()
-        data = input("\nData (DD/MM/AAAA): ").strip()
-        hora = input("\nHora (HH:MM): ").strip()
-        valor = input("\nValor (R$): ").strip()
+        data = pedir_numero ("\nData (DD/MM/AAAA): ").strip()
+        hora = pedir_numero("\nHora (HH:MM): ").strip()
+        valor = pedir_valor("\nValor (R$): ").strip()
         print("""\nForma de pagamento:
 [1] PIX
 [2] Dinheiro
 [3] Débito
-[4] Crédito""")
+[4] Crédito
+[5] Boleto""")
         
-        pagamento = input("Escolha: ").strip()
+        pagamento = input("\nEscolha: ").strip()
         formas = {
             "1": "PIX",
             "2": "Dinheiro",
             "3": "Débito",
-            "4": "Crédito"
+            "4": "Crédito",
+            "5": "Boleto"
         }
         pagamento = formas.get(pagamento, "Não informado")
         cnpj = input("\nCNPJ (opcional): ").strip()
@@ -87,12 +113,8 @@ def listar_pendentes():
     print("""
 ============================
  REGISTROS NÃO EXPORTADOS
-============================
-""")
-
-
+============================""")
     for registro in registros:
-
         print(f"""
 ID: {registro[0]}
 Local: {registro[1]}
