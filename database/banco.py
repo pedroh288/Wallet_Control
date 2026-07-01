@@ -14,15 +14,14 @@ def criar_tabela():
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+        Valor TEXT,
+        Pagamento TEXT,
         Local TEXT,
         Data TEXT,
         Hora TEXT,
-        Valor TEXT,
-        Pagamento TEXT,
         CNPJ TEXT,
 
         exportado INTEGER DEFAULT 0
-
     )
     """)
 
@@ -36,11 +35,11 @@ def salvar_registro(registro):
     cursor.execute("""
     INSERT INTO pagamentos
     (
+        valor,
+        pagamento,
         local,
         data,
         hora,
-        valor,
-        pagamento,
         cnpj
     )
 
@@ -48,11 +47,11 @@ def salvar_registro(registro):
 
     """,
     (
+        registro["valor"],
+        registro["pagamento"],
         registro["local"],
         registro["data"],
         registro["hora"],
-        registro["valor"],
-        registro["pagamento"],
         registro["cnpj"]
     ))
 
@@ -60,7 +59,6 @@ def salvar_registro(registro):
     conexao.close()
 
 def buscar_registros():
-
     conexao = conectar()
     cursor = conexao.cursor()
 
@@ -70,13 +68,11 @@ def buscar_registros():
     """)
 
     registros = cursor.fetchall()
-
     conexao.close()
 
     return registros
 
 def registros_pendentes():
-
     conexao = conectar()
     cursor = conexao.cursor()
 
@@ -87,15 +83,12 @@ def registros_pendentes():
     """)
 
     registros = cursor.fetchall()
-
     conexao.close()
 
     return registros
 
 def marcar_exportados():
-
     conexao = conectar()
-
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -105,5 +98,4 @@ def marcar_exportados():
     """)
 
     conexao.commit()
-
     conexao.close()

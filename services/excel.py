@@ -25,11 +25,11 @@ def exportar_excel():
 
     aba.append([
         "ID",
+        "Valor",
+        "Pagamento",
         "Local",
         "Data",
         "Hora",
-        "Valor",
-        "Pagamento",
         "CNPJ"
     ])
 
