@@ -113,7 +113,7 @@ def novo_registro():
         
         registro = {
 
-            "valor": valor,
+            "valor": f"R$ {valor}",
             "pagamento": pagamento,
             "local": local,
             "data": data,
