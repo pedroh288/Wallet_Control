@@ -63,7 +63,14 @@ def buscar_registros():
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT *
+    SELECT
+        id,
+        valor,
+        pagamento,
+        local,
+        data,
+        hora,
+        cnpj
     FROM pagamentos
     """)
 
@@ -77,7 +84,14 @@ def registros_pendentes():
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT *
+    SELECT
+        id,
+        valor,
+        pagamento,
+        local,
+        data,
+        hora,
+        cnpj
     FROM pagamentos
     WHERE exportado = 0
     """)
