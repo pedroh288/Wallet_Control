@@ -16,6 +16,7 @@ def criar_tabela():
 
         Valor TEXT,
         Pagamento TEXT,
+        Banco TEXT,
         Local TEXT,
         Data TEXT,
         Hora TEXT,
@@ -37,18 +38,20 @@ def salvar_registro(registro):
     (
         valor,
         pagamento,
+        banco,
         local,
         data,
         hora,
         cnpj
     )
 
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
 
     """,
     (
         registro["valor"],
         registro["pagamento"],
+        registro ["banco"],
         registro["local"],
         registro["data"],
         registro["hora"],
@@ -67,6 +70,7 @@ def buscar_registros():
         id,
         valor,
         pagamento,
+        banco,
         local,
         data,
         hora,
@@ -88,6 +92,7 @@ def registros_pendentes():
         id,
         valor,
         pagamento,
+        banco,
         local,
         data,
         hora,

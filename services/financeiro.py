@@ -60,6 +60,46 @@ def pedir_valor(mensagem):
         except ValueError:
             print("Digite um valor válido!")
     
+def pedir_banco():
+
+    bancos = {
+        "1": "Banco do Brasil",
+        "2": "Bradesco",
+        "3": "Caixa",
+        "4": "Inter",
+        "5": "Itaú",
+        "6": "Nubank",
+        "7": "Santander",
+        "8": "Outro",
+        "0": "Não informado"
+    }
+
+    print("""
+Banco utilizado:
+[1] Banco do Brasil
+[2] Bradesco
+[3] Caixa
+[4] Inter
+[5] Itaú
+[6] Nubank
+[7] Santander
+[8] Outro
+[0] Não informado
+""")
+
+    while True:
+
+        escolha = input("\nEscolha: ").strip()
+
+        if escolha in bancos:
+
+            if escolha == "8":
+                return input("Nome do banco: ").strip()
+
+            return bancos[escolha]
+
+        print("Digite apenas um número correspondente!")
+
 def novo_registro():
     try:
         logo()
@@ -88,6 +128,12 @@ def novo_registro():
         
             if pagamento in formas:
                 pagamento = formas[pagamento]
+
+                if pagamento in ("PIX", "Débito", "Crédito"):
+                    bancos = pedir_banco()
+
+                else:
+                    bancos = "Não se aplica"
                 break
 
             print("Digite apenas o número correpondente!")
@@ -115,6 +161,7 @@ def novo_registro():
 
             "valor": f"R$ {valor}",
             "pagamento": pagamento,
+            "banco": bancos,
             "local": local,
             "data": data,
             "hora": hora,
@@ -156,10 +203,11 @@ def listar_pendentes():
 ID: {registro[0]}
 Valor: R$ {registro[1]}
 Pagamento: {registro[2]}
-Local: {registro[3]}
-Data: {registro[4]}
-Hora: {registro[5]}
-CNPJ: {registro[6]}
+Banco {registro[3]}
+Local: {registro[4]}
+Data: {registro[5]}
+Hora: {registro[6]}
+CNPJ: {registro[7]}
 ----------------------------
 """)
 
