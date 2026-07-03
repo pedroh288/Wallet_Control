@@ -14,7 +14,7 @@ def criar_tabela():
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        Valor TEXT,
+        Valor REAL,
         Pagamento TEXT,
         Banco TEXT,
         Local TEXT,
