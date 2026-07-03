@@ -62,7 +62,7 @@ def pedir_valor(mensagem):
     
 def pedir_banco():
 
-    bancos = {
+    banco = {
         "1": "Banco do Brasil",
         "2": "Bradesco",
         "3": "Caixa",
@@ -75,7 +75,7 @@ def pedir_banco():
     }
 
     print("""
-Banco utilizado:
+\033[36mBanco\033[0m utilizado:
 [1] Banco do Brasil
 [2] Bradesco
 [3] Caixa
@@ -84,29 +84,30 @@ Banco utilizado:
 [6] Nubank
 [7] Santander
 [8] Outro
-[0] Não informado
-""")
+[0] Não informado""")
 
     while True:
 
         escolha = input("\nEscolha: ").strip()
 
-        if escolha in bancos:
+        if escolha in banco:
 
             if escolha == "8":
                 return input("Nome do banco: ").strip()
 
-            return bancos[escolha]
+            return banco[escolha]
 
         print("Digite apenas um número correspondente!")
+        print("---------------")
 
 def novo_registro():
     try:
         logo()
         print("\n=== Novo Registro ===".upper())
-        valor = pedir_valor("\nValor (R$): ")
+        valor = pedir_valor("\n\033[36mValor\033[0m (R$): ")
+        print("---------------")
 
-        print("""\nForma de pagamento:
+        print("""\nForma de \033[36mPagamento\033[0m:
 [1] PIX
 [2] Dinheiro
 [3] Débito
@@ -128,26 +129,31 @@ def novo_registro():
         
             if pagamento in formas:
                 pagamento = formas[pagamento]
+                print("---------------")
 
                 if pagamento in ("PIX", "Débito", "Crédito"):
-                    bancos = pedir_banco()
+                    banco = pedir_banco()
+                    print("---------------")
 
                 else:
-                    bancos = "Não se aplica"
+                    banco = "Não se aplica"
                 break
 
             print("Digite apenas o número correpondente!")
         
-        local = input("\nLocal: ").strip()
+        local = input("\n\033[36mLocal\033[0m: ").strip()
 
         if local == "":
             local = "Não informado"
+        print("---------------")
 
-        data = pedir_data ("\nData (DD/MM/AAAA): ")
-        hora = pedir_hora("\nHora (HH:MM): ")
+        data = pedir_data ("\n\033[36mData\033[0m (DD/MM/AAAA): ")
+        print("---------------")
+        hora = pedir_hora("\n\033[36mHora\033[0m (HH:MM): ")
+        print("---------------")
         
         while True:
-            cnpj = input("\nCNPJ: ").strip()
+            cnpj = input("\n\033[36mCNPJ\033[0m: ").strip()
 
             if cnpj.isdigit():
                 break
@@ -155,13 +161,13 @@ def novo_registro():
                 cnpj = "Não informado"
                 break
         
-        print ("CNPJ deve conter apenas números!")
+            print ("CNPJ deve conter apenas números!")
+        print("---------------")
         
         registro = {
-
-            "valor": f"R$ {valor}",
+            "valor": valor,
             "pagamento": pagamento,
-            "banco": bancos,
+            "banco": banco,
             "local": local,
             "data": data,
             "hora": hora,
@@ -170,13 +176,21 @@ def novo_registro():
 
         database.banco.salvar_registro(registro)
         
-        print("""============================
+        print("""
+============================
       REGISTRO CRIADO
 ============================
-    """)
+""")
         
         for chave, valor in registro.items():
-            print(f"{chave.capitalize()}: {valor}")
+
+            if chave == "valor":
+                print(f"\033[91mValor\033[0m: R$ {valor:.2f}")
+            elif chave == "cnpj":
+                print(f"\033[91mCNPJ\033[0m: {cnpj}")
+            else:
+                print(f"\033[91m{chave.capitalize()}\033[0m: {valor}")
+
         input("\nPressione ENTER para continuar...")
         return True
     
@@ -196,22 +210,22 @@ def listar_pendentes():
         return
 
     print("""============================
- REGISTROS NÃO EXPORTADOS
+ REGISTROS \033[41mNÃO\33[0m EXPORTADOS
 ============================""")
     for registro in registros:
         print(f"""
-ID: {registro[0]}
-Valor: R$ {registro[1]}
-Pagamento: {registro[2]}
-Banco {registro[3]}
-Local: {registro[4]}
-Data: {registro[5]}
-Hora: {registro[6]}
-CNPJ: {registro[7]}
-----------------------------
-""")
+\033[91mID\033[0m: {registro[0]}
 
-    input("ENTER para continuar...")
+\033[91mValor\033[0m: R$ {registro[1]:.2f}
+\033[91mPagamento\033[0m: {registro[2]}
+\033[91mBanco\033[0m: {registro[3]}
+\033[91mLocal\033[0m: {registro[4]}
+\033[91mData\033[0m: {registro[5]}
+\033[91mHora\033[0m: {registro[6]}
+\033[91mCNPJ\033[0m: {registro[7]}
+----------------------------""")
+
+    input("\nENTER para continuar...")
 
 if __name__ == "__main__":
     novo_registro()
