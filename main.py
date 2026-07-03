@@ -30,7 +30,7 @@ def escolha_menu():
         logo()
         print("""===== escolha =====""".upper())
         print("""
-[1] - Novo pagamento
+[1] - Novo Pagamento
 [2] - Listar Pendentes
 [3] - Exportar Excel
 [0] - Sair
