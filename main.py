@@ -1,33 +1,9 @@
 from database.banco import criar_tabela
 import services
-import os
 
-VERSAO = "0.1"
-
-def limpar():
-    os.system("cls" if os.name == "nt" else "clear")
-
-def encerrar():
-    print("\n\nEncerrando...")
-    input("\nPressione ENTER para continuar...")
-    limpar()
-
-def logo():
-        limpar()
-        print(f"""
-+----------------------------------------------------------+
-|                                                          |
-| ░█░█░█▀█░█░░░█░░░█▀▀░▀█▀░░░░░█▀▀░█▀█░█▀█░▀█▀░█▀▄░█▀█░█░░ |
-| ░█▄█░█▀█░█░░░█░░░█▀▀░░█░░░░░░█░░░█░█░█░█░░█░░█▀▄░█░█░█░░ |
-| ░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀░▀▀▀░▀▀▀░▀░▀░░▀░░▀░▀░▀▀▀░▀▀▀ |
-|                                                          |
-+----------------------------------------------------------+
-                          v{VERSAO}
-""")
-        
 def escolha_menu():
     while True:
-        logo()
+        services.utils.logo_main()
         print("""===== escolha =====""".upper())
         print("""
 [1] - Novo Pagamento
@@ -48,7 +24,7 @@ def escolha_menu():
                 services.excel.exportar_excel()
 
             elif opcao == "0":
-                encerrar()
+                services.utils.encerrar()
                 break
 
             else:
@@ -56,20 +32,20 @@ def escolha_menu():
                 input("\nPressione ENTER para continuar...")
 
         except EOFError:
-            encerrar()
+            services.utils.encerrar()
             break
 
 def main():
     criar_tabela()
     try:
-        limpar()
+        services.utils.limpar()
         escolha_menu()
 
     except KeyboardInterrupt:
-        encerrar()
+        services.utils.encerrar()
     
     except EOFError:
-        encerrar ()
+        services.utils.encerrar ()
 
 
 if __name__ == "__main__":
