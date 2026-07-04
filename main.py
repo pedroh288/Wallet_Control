@@ -1,6 +1,6 @@
-from database.banco import criar_tabela
+import database
 import services
-
+        
 def escolha_menu():
     while True:
         services.utils.logo_main()
@@ -36,7 +36,7 @@ def escolha_menu():
             break
 
 def main():
-    criar_tabela()
+    database.banco.criar_tabela()
     try:
         services.utils.limpar()
         escolha_menu()
