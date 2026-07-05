@@ -29,10 +29,9 @@ def exportar_excel():
         "Valor",
         "Pagamento",
         "Banco",
-        "Local",
+        "Contraparte",
         "Data",
-        "Hora",
-        "CNPJ"
+        "Hora"
     ])
 
     for registro in registros:

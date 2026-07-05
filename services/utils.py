@@ -159,10 +159,9 @@ def listar_pendentes():
 {cor}Valor\033[0m: R$ {registro[2]:.2f}
 {cor}Forma\033[0m: {registro[3]}
 {cor}Banco\033[0m: {registro[4]}
-{cor}Local\033[0m: {registro[5]}
+{cor}Contraparte\033[0m: {registro[5]}
 {cor}Data\033[0m: {registro[6]}
 {cor}Hora\033[0m: {registro[7]}
-{cor}CNPJ\033[0m: {registro[8]}
 ----------------------------
 """)
 

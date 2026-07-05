@@ -71,10 +71,9 @@ def despesa_registro():
             "valor": valor,
             "forma_pagamento": pagamento,
             "banco": banco,
-            "local": local,
+            "contraparte": local,
             "data": data,
-            "hora": hora,
-            "cnpj": cnpj
+            "hora": hora
         }
 
         database.banco.salvar_registro(registro)
@@ -89,8 +88,6 @@ def despesa_registro():
 
             if chave == "valor":
                 print(f"\033[91mValor\033[0m: R$ {valor:.2f}")
-            elif chave == "cnpj":
-                print(f"\033[91mCNPJ\033[0m: {cnpj}")
             elif chave == "forma_pagamento":
                 print(f"\033[91mForma de Pagamento\033[0m: {pagamento}")
             else:

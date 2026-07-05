@@ -64,10 +64,9 @@ def entrada_registro():
             "valor": valor,
             "forma_pagamento": recebimento,
             "banco": banco,
-            "local": origem,
+            "contraparte": origem,
             "data": data,
-            "hora": hora,
-            "cnpj": remetente
+            "hora": hora
         }
 
         database.banco.salvar_registro(registro)

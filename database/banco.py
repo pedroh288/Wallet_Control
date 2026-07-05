@@ -18,10 +18,9 @@ def criar_tabela():
         Valor REAL,
         Forma_Pagamento TEXT,
         Banco TEXT,
-        Local TEXT,
+        Contraparte TEXT,
         Data TEXT,
         Hora TEXT,
-        CNPJ TEXT,
 
         exportado INTEGER DEFAULT 0
     )
@@ -41,13 +40,12 @@ def salvar_registro(registro):
         valor,
         forma_pagamento,
         banco,
-        local,
+        contraparte,
         data,
-        hora,
-        cnpj
+        hora
     )
 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
 
     """,
     (
@@ -55,10 +53,9 @@ def salvar_registro(registro):
         registro["valor"],
         registro["forma_pagamento"],
         registro ["banco"],
-        registro["local"],
+        registro["contraparte"],
         registro["data"],
-        registro["hora"],
-        registro["cnpj"]
+        registro["hora"]
     ))
 
     conexao.commit()
@@ -75,10 +72,9 @@ def buscar_registros():
         valor,
         forma_pagamento,
         banco,
-        local,
+        contraparte,
         data,
-        hora,
-        cnpj
+        hora
     FROM pagamentos
     """)
 
@@ -98,10 +94,9 @@ def registros_pendentes():
         valor,
         forma_pagamento,
         banco,
-        local,
+        contraparte,
         data,
-        hora,
-        cnpj
+        hora
     FROM pagamentos
     WHERE exportado = 0
     """)
