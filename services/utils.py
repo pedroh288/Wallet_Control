@@ -136,11 +136,9 @@ def listar_pendentes():
 
     logo_main()
 
-    print("""
-============================
+    print("""============================
  REGISTROS NÃO EXPORTADOS
-============================
-""")
+============================""")
 
     for registro in registros:
 
@@ -161,7 +159,6 @@ def listar_pendentes():
 {cor}Contraparte\033[0m: {registro[5]}
 {cor}Data\033[0m: {registro[6]}
 {cor}Hora\033[0m: {registro[7]}
-----------------------------
-""")
+----------------------------""")
 
     input("\nENTER para continuar...")

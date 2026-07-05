@@ -2,11 +2,16 @@
 __pycache__/
 *.pyc
 
-#Banco de Dados
+# Banco de Dados
 data/
 *.db
 exports/
 *.xlsx
+
+# PyInstaller
+build/
+dist/
+*.spec
 
 notes.md
 style.txt
