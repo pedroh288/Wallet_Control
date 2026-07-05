@@ -7,20 +7,24 @@ def escolha_menu():
         print("""===== escolha =====""".upper())
         print("""
 [1] - Novo Pagamento
-[2] - Listar Pendentes
-[3] - Exportar Excel
+[2] - Nova Entrada
+[3] - Listar Pendentes
+[4] - Exportar Excel
 [0] - Sair
     """)
             
         opcao = input("> ").strip()
         try:
             if opcao == "1":
-                services.financeiro.novo_registro()
+                services.despesa.despesa_registro()
 
             elif opcao == "2":
-                services.financeiro.listar_pendentes()
+                services.entrada.entrada_registro()
 
             elif opcao == "3":
+                services.utils.listar_pendentes()
+
+            elif opcao == "4":
                 services.excel.exportar_excel()
 
             elif opcao == "0":

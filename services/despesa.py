@@ -1,9 +1,8 @@
-import os
 import database
 from datetime import datetime
 import services
 
-def novo_registro():
+def despesa_registro():
     try:
         services.utils.logo_register()
         print("\n=== Novo Registro ===".upper())
@@ -68,8 +67,9 @@ def novo_registro():
         print("---------------")
         
         registro = {
+            "tipo":"Depesa",
             "valor": valor,
-            "pagamento": pagamento,
+            "forma_pagamento": pagamento,
             "banco": banco,
             "local": local,
             "data": data,
@@ -91,6 +91,8 @@ def novo_registro():
                 print(f"\033[91mValor\033[0m: R$ {valor:.2f}")
             elif chave == "cnpj":
                 print(f"\033[91mCNPJ\033[0m: {cnpj}")
+            elif chave == "forma_pagamento":
+                print(f"\033[91mForma de Pagamento\033[0m: {pagamento}")
             else:
                 print(f"\033[91m{chave.capitalize()}\033[0m: {valor}")
 
@@ -102,33 +104,6 @@ def novo_registro():
         input("\nPressione ENTER para continuar...")
         return None
 
-def listar_pendentes():
-
-    registros = database.banco.registros_pendentes()
-
-    if not registros:
-
-        print("\nNenhum registro pendente.")
-        input("\nENTER para continuar...")
-        return
-
-    print("""============================
- REGISTROS \033[41mNÃO\33[0m EXPORTADOS
-============================""")
-    for registro in registros:
-        print(f"""
-\033[91mID\033[0m: {registro[0]}
-
-\033[91mValor\033[0m: R$ {registro[1]:.2f}
-\033[91mPagamento\033[0m: {registro[2]}
-\033[91mBanco\033[0m: {registro[3]}
-\033[91mLocal\033[0m: {registro[4]}
-\033[91mData\033[0m: {registro[5]}
-\033[91mHora\033[0m: {registro[6]}
-\033[91mCNPJ\033[0m: {registro[7]}
-----------------------------""")
-
-    input("\nENTER para continuar...")
 
 if __name__ == "__main__":
-    novo_registro()
+    despesa_registro()

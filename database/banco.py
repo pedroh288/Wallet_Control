@@ -14,8 +14,9 @@ def criar_tabela():
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
+        Tipo TEXT,
         Valor REAL,
-        Pagamento TEXT,
+        Forma_Pagamento TEXT,
         Banco TEXT,
         Local TEXT,
         Data TEXT,
@@ -36,8 +37,9 @@ def salvar_registro(registro):
     cursor.execute("""
     INSERT INTO pagamentos
     (
+        tipo,
         valor,
-        pagamento,
+        forma_pagamento,
         banco,
         local,
         data,
@@ -45,12 +47,13 @@ def salvar_registro(registro):
         cnpj
     )
 
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 
     """,
     (
+        registro["tipo"],
         registro["valor"],
-        registro["pagamento"],
+        registro["forma_pagamento"],
         registro ["banco"],
         registro["local"],
         registro["data"],
@@ -68,8 +71,9 @@ def buscar_registros():
     cursor.execute("""
     SELECT
         id,
+        tipo,
         valor,
-        pagamento,
+        forma_pagamento,
         banco,
         local,
         data,
@@ -90,8 +94,9 @@ def registros_pendentes():
     cursor.execute("""
     SELECT
         id,
+        tipo,
         valor,
-        pagamento,
+        forma_pagamento,
         banco,
         local,
         data,

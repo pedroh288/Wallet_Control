@@ -111,7 +111,7 @@ def pedir_banco():
         print("Digite apenas um número correspondente!")
         print("---------------")
 
-### FINANCEIRO.py
+### DESPESA.py
 
 def logo_register():
     limpar()
@@ -125,3 +125,45 @@ def logo_register():
 :                                                          :
 ····························································
 """)
+
+def listar_pendentes():
+
+    registros = database.banco.registros_pendentes()
+
+    if not registros:
+        print("\nNenhum registro pendente.")
+        input("\nENTER para continuar...")
+        return
+
+    logo_main()
+
+    print("""
+============================
+ REGISTROS NÃO EXPORTADOS
+============================
+""")
+
+    for registro in registros:
+
+        tipo = registro[1]
+
+        if tipo.lower() == "entrada":
+            cor = "\033[92m"      # verde
+        else:
+            cor = "\033[91m"      # vermelho
+
+        print(f"""
+{cor}ID\033[0m: {registro[0]}
+
+{cor}Tipo\033[0m: {registro[1]}
+{cor}Valor\033[0m: R$ {registro[2]:.2f}
+{cor}Forma\033[0m: {registro[3]}
+{cor}Banco\033[0m: {registro[4]}
+{cor}Local\033[0m: {registro[5]}
+{cor}Data\033[0m: {registro[6]}
+{cor}Hora\033[0m: {registro[7]}
+{cor}CNPJ\033[0m: {registro[8]}
+----------------------------
+""")
+
+    input("\nENTER para continuar...")
