@@ -12,11 +12,16 @@ def exportar_excel():
 
     os.makedirs("exports", exist_ok=True)
 
-    nome = datetime.now().strftime(
-        "financeiro_%m_%Y.xlsx"
-    )
+    base = datetime.now().strftime("financeiro_%m_%Y")
+    nome = f"{base}.xlsx"
 
-    caminho = f"exports/{nome}"
+    contador = 2
+
+    while os.path.exists(os.path.join("exports", nome)):
+        nome = f"{base} ({contador}).xlsx"
+        contador += 1
+
+    caminho = os.path.join("exports", nome)
 
     arquivo = Workbook()
 

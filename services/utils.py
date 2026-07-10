@@ -162,3 +162,13 @@ def listar_pendentes():
 ----------------------------""")
 
     input("\nENTER para continuar...")
+
+def gerar_nome_unico(pasta, nome_base, extensao):
+    nome = f"{nome_base}.{extensao}"
+    contador = 2
+
+    while os.path.exists(os.path.join(pasta, nome)):
+        nome = f"{nome_base} ({contador}).{extensao}"
+        contador += 1
+
+    return os.path.join(pasta, nome)
