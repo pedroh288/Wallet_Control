@@ -71,6 +71,16 @@ def salvar_registro(registro):
     conexao.commit()
     conexao.close()
 
+def limpar_registros():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("DELETE FROM pagamentos")
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='pagamentos'")
+
+    conexao.commit()
+    conexao.close()
+
 def buscar_registros():
     conexao = conectar()
     cursor = conexao.cursor()

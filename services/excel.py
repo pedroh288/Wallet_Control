@@ -1,10 +1,10 @@
 from openpyxl import Workbook
 from datetime import datetime
 import os
-from database.banco import buscar_registros, marcar_exportados
+from database import banco
 
 def exportar_excel():
-    registros = buscar_registros()
+    registros = banco.buscar_registros()
 
     if not registros:
         print("Nenhum registro encontrado.")
@@ -38,6 +38,7 @@ def exportar_excel():
         aba.append(registro)
 
     arquivo.save(caminho)
-    marcar_exportados()
+    banco.marcar_exportados()
+    banco.limpar_registros()
     print(f"\nExcel criado: {caminho}")
     input("\nPressione ENTER para continuar...")
