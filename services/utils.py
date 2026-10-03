@@ -3,9 +3,16 @@ import services
 import os
 from datetime import datetime
 
+cor_entrada = "\033[92m"
+cor_despesa = "\033[91m"
+cor_ciano = "\033[36m"
+cor_ciano_claro = "\033[1;96m"
+
+cor_reset = "\033[0m"
+
 ### MAIN.py
 
-VERSAO = "0.1"
+VERSAO = "0.2"
 
 def limpar():
     os.system("cls" if os.name == "nt" else "clear")
@@ -84,7 +91,7 @@ def pedir_banco():
         "0": "Não informado"
     }
 
-    print("""\n\033[36mBanco\033[0m utilizado:
+    print(f"""\n{cor_ciano}Banco{cor_reset} utilizado:
 [1] Banco do Brasil
 [2] Bradesco
 [3] Caixa
@@ -124,9 +131,6 @@ def logo_register():
 ····························································
 """)
 
-cor_entrada = "\033[92m"
-cor_despesa = "\033[91m"
-
 def listar_pendentes():
 
     entradas = database.banco.entradas_pendentes()
@@ -139,8 +143,8 @@ def listar_pendentes():
 
     logo_main()
 
-    print("""============================
- REGISTROS NÃO EXPORTADOS
+    print(f"""============================
+ {cor_ciano_claro}REGISTROS NÃO EXPORTADOS{cor_reset}
 ============================""")
 
 # ENTRADA
@@ -148,16 +152,16 @@ def listar_pendentes():
     for registro in entradas:
 
         print(f"""
-{cor_entrada}ID\033[0m: {registro[0]}
+{cor_entrada}ID{cor_reset}: {registro[0]}
 
-{cor_entrada}Tipo\033[0m: Entrada
-{cor_entrada}Valor\033[0m: R$ {registro[1]:.2f}
-{cor_entrada}Forma\033[0m: {registro[2]}
-{cor_entrada}Banco\033[0m: {registro[3]}
-{cor_entrada}Origem\033[0m: {registro[4]}
-{cor_entrada}Data\033[0m: {registro[5]}
-{cor_entrada}Hora\033[0m: {registro[6]}
-{cor_entrada}Remetente\033[0m: {registro[7]}
+{cor_entrada}Tipo{cor_reset}: Entrada
+{cor_entrada}Valor{cor_reset}: R$ {registro[1]:.2f}
+{cor_entrada}Forma{cor_reset}: {registro[2]}
+{cor_entrada}Banco{cor_reset}: {registro[3]}
+{cor_entrada}Origem{cor_reset}: {registro[4]}
+{cor_entrada}Data{cor_reset}: {registro[5]}
+{cor_entrada}Hora{cor_reset}: {registro[6]}
+{cor_entrada}Remetente{cor_reset}: {registro[7]}
 ----------------------------""")
 
 # DESPESA
@@ -165,16 +169,16 @@ def listar_pendentes():
     for registro in despesas:
 
         print(f"""
-{cor_despesa}ID\033[0m: {registro[0]}
+{cor_despesa}ID{cor_reset}: {registro[0]}
 
-{cor_despesa}Tipo\033[0m: Despesa
-{cor_despesa}Valor\033[0m: R$ {registro[1]:.2f}
-{cor_despesa}Forma\033[0m: {registro[2]}
-{cor_despesa}Banco\033[0m: {registro[3]}
-{cor_despesa}Local\033[0m: {registro[4]}
-{cor_despesa}Data\033[0m: {registro[5]}
-{cor_despesa}Hora\033[0m: {registro[6]}
-{cor_despesa}CNPJ\033[0m: {registro[7]}
+{cor_despesa}Tipo{cor_reset}: Despesa
+{cor_despesa}Valor{cor_reset}: R$ {registro[1]:.2f}
+{cor_despesa}Forma{cor_reset}: {registro[2]}
+{cor_despesa}Banco{cor_reset}: {registro[3]}
+{cor_despesa}Local{cor_reset}: {registro[4]}
+{cor_despesa}Data{cor_reset}: {registro[5]}
+{cor_despesa}Hora{cor_reset}: {registro[6]}
+{cor_despesa}CNPJ{cor_reset}: {registro[7]}
 ----------------------------""")
 
     input("\nENTER para continuar...")

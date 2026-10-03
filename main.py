@@ -4,7 +4,7 @@ import services
 def escolha_menu():
     while True:
         services.utils.logo_main()
-        print("""===== escolha =====""".upper())
+        print(f"""===== {services.utils.cor_ciano}ESCOLHA{services.utils.cor_reset} =====""")
         print("""
 [1] - Novo Pagamento
 [2] - Nova Entrada
