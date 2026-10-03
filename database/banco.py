@@ -244,8 +244,8 @@ def limpar_registros():
     cursor.execute("DELETE FROM entradas")
     cursor.execute("DELETE FROM despesas")
 
-    cursor.execute("DELETE FROM sqlite_sequence WHERE name='entradas'")
-    cursor.execute("DELETE FROM sqlite_sequence WHERE name='despesas'")
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='Entradas'")
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='Despesas'")
 
     conexao.commit()
     conexao.close()
