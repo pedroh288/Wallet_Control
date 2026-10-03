@@ -3,13 +3,6 @@ import services
 import os
 from datetime import datetime
 
-cor_entrada = "\033[92m"
-cor_despesa = "\033[91m"
-cor_ciano = "\033[36m"
-cor_ciano_claro = "\033[1;96m"
-
-cor_reset = "\033[0m"
-
 ### MAIN.py
 
 VERSAO = "0.2"
@@ -91,7 +84,7 @@ def pedir_banco():
         "0": "Não informado"
     }
 
-    print(f"""\n{cor_ciano}Banco{cor_reset} utilizado:
+    print(f"""\n{services.colors.cor_ciano}Banco{services.colors.cor_reset} utilizado:
 [1] Banco do Brasil
 [2] Bradesco
 [3] Caixa
@@ -144,7 +137,7 @@ def listar_pendentes():
     logo_main()
 
     print(f"""============================
- {cor_ciano_claro}REGISTROS NÃO EXPORTADOS{cor_reset}
+ {services.colors.cor_ciano_claro}REGISTROS NÃO EXPORTADOS{services.colors.cor_reset}
 ============================""")
 
 # ENTRADA
@@ -152,16 +145,16 @@ def listar_pendentes():
     for registro in entradas:
 
         print(f"""
-{cor_entrada}ID{cor_reset}: {registro[0]}
+{services.colors.cor_verde_claro}ID{services.colors.cor_reset}: {registro[0]}
 
-{cor_entrada}Tipo{cor_reset}: Entrada
-{cor_entrada}Valor{cor_reset}: R$ {registro[1]:.2f}
-{cor_entrada}Forma{cor_reset}: {registro[2]}
-{cor_entrada}Banco{cor_reset}: {registro[3]}
-{cor_entrada}Origem{cor_reset}: {registro[4]}
-{cor_entrada}Data{cor_reset}: {registro[5]}
-{cor_entrada}Hora{cor_reset}: {registro[6]}
-{cor_entrada}Remetente{cor_reset}: {registro[7]}
+{services.colors.cor_verde_claro}Tipo{services.colors.cor_reset}: Entrada
+{services.colors.cor_verde_claro}Valor{services.colors.cor_reset}: R$ {registro[1]:.2f}
+{services.colors.cor_verde_claro}Forma{services.colors.cor_reset}: {registro[2]}
+{services.colors.cor_verde_claro}Banco{services.colors.cor_reset}: {registro[3]}
+{services.colors.cor_verde_claro}Origem{services.colors.cor_reset}: {registro[4]}
+{services.colors.cor_verde_claro}Data{services.colors.cor_reset}: {registro[5]}
+{services.colors.cor_verde_claro}Hora{services.colors.cor_reset}: {registro[6]}
+{services.colors.cor_verde_claro}Remetente{services.colors.cor_reset}: {registro[7]}
 ----------------------------""")
 
 # DESPESA
@@ -169,16 +162,16 @@ def listar_pendentes():
     for registro in despesas:
 
         print(f"""
-{cor_despesa}ID{cor_reset}: {registro[0]}
+{services.colors.cor_vermelho_claro}ID{services.colors.cor_reset}: {registro[0]}
 
-{cor_despesa}Tipo{cor_reset}: Despesa
-{cor_despesa}Valor{cor_reset}: R$ {registro[1]:.2f}
-{cor_despesa}Forma{cor_reset}: {registro[2]}
-{cor_despesa}Banco{cor_reset}: {registro[3]}
-{cor_despesa}Local{cor_reset}: {registro[4]}
-{cor_despesa}Data{cor_reset}: {registro[5]}
-{cor_despesa}Hora{cor_reset}: {registro[6]}
-{cor_despesa}CNPJ{cor_reset}: {registro[7]}
+{services.colors.cor_vermelho_claro}Tipo{services.colors.cor_reset}: Despesa
+{services.colors.cor_vermelho_claro}Valor{services.colors.cor_reset}: R$ {registro[1]:.2f}
+{services.colors.cor_vermelho_claro}Forma{services.colors.cor_reset}: {registro[2]}
+{services.colors.cor_vermelho_claro}Banco{services.colors.cor_reset}: {registro[3]}
+{services.colors.cor_vermelho_claro}Local{services.colors.cor_reset}: {registro[4]}
+{services.colors.cor_vermelho_claro}Data{services.colors.cor_reset}: {registro[5]}
+{services.colors.cor_vermelho_claro}Hora{services.colors.cor_reset}: {registro[6]}
+{services.colors.cor_vermelho_claro}CNPJ{services.colors.cor_reset}: {registro[7]}
 ----------------------------""")
 
     input("\nENTER para continuar...")
