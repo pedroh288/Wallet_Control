@@ -4,9 +4,10 @@ import os
 from database import banco
 
 def exportar_excel():
-    registros = banco.buscar_registros()
+    entrada = banco.entradas_pendentes()
+    despesa = banco.despesas_pendentes()
 
-    if not registros:
+    if not entrada and not despesa:
         print("Nenhum registro encontrado.")
         return
 
@@ -25,25 +26,45 @@ def exportar_excel():
 
     arquivo = Workbook()
 
-    aba = arquivo.active
-    aba.title = "Financeiro"
+    aba_entrada = arquivo.active
+    aba_entrada.title = "Entradas"
 
-    aba.append([
+    aba_entrada.append([
         "ID",
-        "Tipo",
         "Valor",
         "Pagamento",
         "Banco",
-        "Contraparte",
+        "Origem",
         "Data",
-        "Hora"
+        "Hora",
+        "Remetente"
     ])
 
-    for registro in registros:
-        aba.append(registro)
+    for registro in entrada:
+        aba_entrada.append(registro)
+
+    aba_despesa = arquivo.create_sheet("Despesas")
+
+    aba_despesa.append([
+        "ID",
+        "Valor",
+        "Pagamento",
+        "Banco",
+        "Local",
+        "Data",
+        "Hora",
+        "CNPJ"
+    ])
+
+    for registro in despesa:
+        aba_despesa.append(registro)
 
     arquivo.save(caminho)
-    banco.marcar_exportados()
+
+    banco.marcar_entradas_exportadas()
+    banco.marcar_despesas_exportadas()
+
     banco.limpar_registros()
+    
     print(f"\nExcel criado: {caminho}")
     input("\nPressione ENTER para continuar...")

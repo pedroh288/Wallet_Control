@@ -60,16 +60,16 @@ def entrada_registro():
         print("---------------")
         
         registro = {
-            "tipo":"Entrada",
             "valor": valor,
             "forma_pagamento": recebimento,
             "banco": banco,
-            "contraparte": origem,
+            "origem": origem,
             "data": data,
-            "hora": hora
+            "hora": hora,
+            "remetente": remetente
         }
 
-        database.banco.salvar_registro(registro)
+        database.banco.salvar_entrada(registro)
         
         print("""
 ============================

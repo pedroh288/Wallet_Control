@@ -20,17 +20,35 @@ def criar_tabela():
     cursor = conexao.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS pagamentos (
+    CREATE TABLE IF NOT EXISTS Entradas (
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        Tipo TEXT,
         Valor REAL,
         Forma_Pagamento TEXT,
         Banco TEXT,
-        Contraparte TEXT,
+        Origem TEXT,
         Data TEXT,
         Hora TEXT,
+        Remetente TEXT,
+
+        exportado INTEGER DEFAULT 0
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Despesas (
+
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        Valor REAL,
+        Forma_Pagamento TEXT,
+        Banco TEXT,
+        Local TEXT,
+        Data TEXT,
+        Hora TEXT,
+        Remetente TEXT,
+        CNPJ TEXT,
 
         exportado INTEGER DEFAULT 0
     )
@@ -39,34 +57,182 @@ def criar_tabela():
     conexao.commit()
     conexao.close()
 
-def salvar_registro(registro):
+def salvar_entrada(registro):
     conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    INSERT INTO pagamentos
+    INSERT INTO entradas
     (
-        tipo,
         valor,
         forma_pagamento,
         banco,
-        contraparte,
+        origem,
         data,
-        hora
+        hora,
+        remetente
     )
 
     VALUES (?, ?, ?, ?, ?, ?, ?)
 
     """,
     (
-        registro["tipo"],
         registro["valor"],
         registro["forma_pagamento"],
-        registro ["banco"],
-        registro["contraparte"],
+        registro["banco"],
+        registro["origem"],
         registro["data"],
-        registro["hora"]
+        registro["hora"],
+        registro["remetente"]
     ))
+
+    conexao.commit()
+    conexao.close()
+
+def salvar_despesa(registro):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    INSERT INTO despesas
+    (
+        valor,
+        forma_pagamento,
+        banco,
+        local,
+        data,
+        hora,
+        cnpj
+    )
+
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+
+    """,
+    (
+        registro["valor"],
+        registro["forma_pagamento"],
+        registro["banco"],
+        registro["local"],
+        registro["data"],
+        registro["hora"],
+        registro["cnpj"]
+    ))
+
+    conexao.commit()
+    conexao.close()
+
+def buscar_entradas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        id,
+        valor,
+        forma_pagamento,
+        banco,
+        origem,
+        data,
+        hora,
+        remetente
+    FROM entradas
+    """)
+
+    registros = cursor.fetchall()
+    conexao.close()
+
+    return registros
+
+def buscar_despesas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        id,
+        valor,
+        forma_pagamento,
+        banco,
+        local,
+        data,
+        hora,
+        cnpj
+    FROM despesas
+    """)
+
+    registros = cursor.fetchall()
+    conexao.close()
+
+    return registros
+
+def entradas_pendentes():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        id,
+        valor,
+        forma_pagamento,
+        banco,
+        origem,
+        data,
+        hora,
+        remetente
+    FROM entradas
+    WHERE exportado = 0
+    """)
+
+    registros = cursor.fetchall()
+    conexao.close()
+
+    return registros
+
+def despesas_pendentes():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        id,
+        valor,
+        forma_pagamento,
+        banco,
+        local,
+        data,
+        hora,
+        cnpj
+    FROM despesas
+    WHERE exportado = 0
+    """)
+
+    registros = cursor.fetchall()
+    conexao.close()
+
+    return registros
+
+def marcar_entradas_exportadas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE entradas
+    SET exportado = 1
+    WHERE exportado = 0
+    """)
+
+    conexao.commit()
+    conexao.close()
+
+def marcar_despesas_exportadas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    UPDATE despesas
+    SET exportado = 1
+    WHERE exportado = 0
+    """)
 
     conexao.commit()
     conexao.close()
@@ -75,66 +241,11 @@ def limpar_registros():
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute("DELETE FROM pagamentos")
-    cursor.execute("DELETE FROM sqlite_sequence WHERE name='pagamentos'")
+    cursor.execute("DELETE FROM entradas")
+    cursor.execute("DELETE FROM despesas")
 
-    conexao.commit()
-    conexao.close()
-
-def buscar_registros():
-    conexao = conectar()
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-    SELECT
-        id,
-        tipo,
-        valor,
-        forma_pagamento,
-        banco,
-        contraparte,
-        data,
-        hora
-    FROM pagamentos
-    """)
-
-    registros = cursor.fetchall()
-    conexao.close()
-
-    return registros
-
-def registros_pendentes():
-    conexao = conectar()
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-    SELECT
-        id,
-        tipo,
-        valor,
-        forma_pagamento,
-        banco,
-        contraparte,
-        data,
-        hora
-    FROM pagamentos
-    WHERE exportado = 0
-    """)
-
-    registros = cursor.fetchall()
-    conexao.close()
-
-    return registros
-
-def marcar_exportados():
-    conexao = conectar()
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-    UPDATE pagamentos
-    SET exportado = 1
-    WHERE exportado = 0
-    """)
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='entradas'")
+    cursor.execute("DELETE FROM sqlite_sequence WHERE name='despesas'")
 
     conexao.commit()
     conexao.close()

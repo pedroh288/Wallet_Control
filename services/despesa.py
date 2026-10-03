@@ -67,16 +67,16 @@ def despesa_registro():
         print("---------------")
         
         registro = {
-            "tipo":"Depesa",
             "valor": valor,
             "forma_pagamento": pagamento,
             "banco": banco,
-            "contraparte": local,
+            "local": local,
             "data": data,
-            "hora": hora
+            "hora": hora,
+            "cnpj": cnpj
         }
 
-        database.banco.salvar_registro(registro)
+        database.banco.salvar_despesa(registro)
         
         print("""
 ============================

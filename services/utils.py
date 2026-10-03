@@ -84,8 +84,7 @@ def pedir_banco():
         "0": "Não informado"
     }
 
-    print("""
-\033[36mBanco\033[0m utilizado:
+    print("""\n\033[36mBanco\033[0m utilizado:
 [1] Banco do Brasil
 [2] Bradesco
 [3] Caixa
@@ -125,11 +124,15 @@ def logo_register():
 ····························································
 """)
 
+cor_entrada = "\033[92m"
+cor_despesa = "\033[91m"
+
 def listar_pendentes():
 
-    registros = database.banco.registros_pendentes()
+    entradas = database.banco.entradas_pendentes()
+    despesas = database.banco.despesas_pendentes()
 
-    if not registros:
+    if not entradas and not despesas:
         print("\nNenhum registro pendente.")
         input("\nENTER para continuar...")
         return
@@ -140,25 +143,38 @@ def listar_pendentes():
  REGISTROS NÃO EXPORTADOS
 ============================""")
 
-    for registro in registros:
+# ENTRADA
 
-        tipo = registro[1]
-
-        if tipo.lower() == "entrada":
-            cor = "\033[92m"      # verde
-        else:
-            cor = "\033[91m"      # vermelho
+    for registro in entradas:
 
         print(f"""
-{cor}ID\033[0m: {registro[0]}
+{cor_entrada}ID\033[0m: {registro[0]}
 
-{cor}Tipo\033[0m: {registro[1]}
-{cor}Valor\033[0m: R$ {registro[2]:.2f}
-{cor}Forma\033[0m: {registro[3]}
-{cor}Banco\033[0m: {registro[4]}
-{cor}Contraparte\033[0m: {registro[5]}
-{cor}Data\033[0m: {registro[6]}
-{cor}Hora\033[0m: {registro[7]}
+{cor_entrada}Tipo\033[0m: Entrada
+{cor_entrada}Valor\033[0m: R$ {registro[1]:.2f}
+{cor_entrada}Forma\033[0m: {registro[2]}
+{cor_entrada}Banco\033[0m: {registro[3]}
+{cor_entrada}Origem\033[0m: {registro[4]}
+{cor_entrada}Data\033[0m: {registro[5]}
+{cor_entrada}Hora\033[0m: {registro[6]}
+{cor_entrada}Remetente\033[0m: {registro[7]}
+----------------------------""")
+
+# DESPESA
+
+    for registro in despesas:
+
+        print(f"""
+{cor_despesa}ID\033[0m: {registro[0]}
+
+{cor_despesa}Tipo\033[0m: Despesa
+{cor_despesa}Valor\033[0m: R$ {registro[1]:.2f}
+{cor_despesa}Forma\033[0m: {registro[2]}
+{cor_despesa}Banco\033[0m: {registro[3]}
+{cor_despesa}Local\033[0m: {registro[4]}
+{cor_despesa}Data\033[0m: {registro[5]}
+{cor_despesa}Hora\033[0m: {registro[6]}
+{cor_despesa}CNPJ\033[0m: {registro[7]}
 ----------------------------""")
 
     input("\nENTER para continuar...")
