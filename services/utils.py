@@ -80,7 +80,8 @@ def pedir_banco():
         "5": "Itaú",
         "6": "Nubank",
         "7": "Santander",
-        "8": "Outro",
+        "8": "InfinitePay",
+        "9": "Outro",
         "0": "Não informado"
     }
 
@@ -92,7 +93,8 @@ def pedir_banco():
 [5] Itaú
 [6] Nubank
 [7] Santander
-[8] Outro
+[8] InfinitePay
+[9] Outro
 [0] Não informado""")
 
     while True:
@@ -101,7 +103,7 @@ def pedir_banco():
 
         if escolha in banco:
 
-            if escolha == "8":
+            if escolha == "9":
                 return input("Nome do banco: ").strip()
 
             return banco[escolha]
